@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joseph Thapa Magar | Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Animated gradient background for hero */
+    header {
+      height: 100vh;
+      background: linear-gradient(-45deg, #1c1c1c, #2a2a2a, #1a1a1a, #333333);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 10%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating particles effect */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 20s infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-100px) translateX(50px); }
+      50% { transform: translateY(-200px) translateX(-50px); }
+      75% { transform: translateY(-100px) translateX(100px); }
+    }
+
+    header h1 {
+      font-size: 4.5rem;
+      font-weight: 700;
+      animation: fadeInUp 1s ease;
+      text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    header h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      animation: fadeInUp 1.2s ease;
+      margin-top: 10px;
+      opacity: 0.9;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn-custom {
+      background: linear-gradient(135deg, #444444 0%, #222222 100%);
+      color: white;
+      border: none;
+      padding: 12px 40px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      animation: fadeInUp 1.4s ease;
+    }
+
+    .btn-custom:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+      background: linear-gradient(135deg, #555555 0%, #333333 100%);
+      color: white;
+    }
+
+    /* Section styling */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 50px;
+      position: relative;
+      color: #1a1a2e;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%);
+      margin: 15px auto 0;
+      border-radius: 2px;
+    }
+
+    /* About section */
+    #about {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    #about p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    /* Profile image styling */
+    .profile-image-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 30px;
+      
+    }
+
+    .profile-image {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid white;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s ease;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .profile-image-container::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #444444 0%, #222222 100%);
+      top: -10px;
+      left: -10px;
+      z-index: -1;
+      opacity: 0.3;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 0.5;
+      }
+    }
+
+    /* Project cards */
+    .project-card {
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      border: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(34, 34, 34, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .project-card img {
+      transition: transform 0.4s ease;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .project-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .project-card .card-body {
+      position: relative;
+      z-index: 2;
+      transition: color 0.4s ease;
+    }
+
+    .project-card:hover .card-title,
+    .project-card:hover .card-text {
+      color: white;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    /* Contact section */
+    #contact {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: white;
+    }
+
+    #contact .section-title {
+      color: white;
+    }
+
+    #contact .section-title::after {
+      background: linear-gradient(135deg, #444444 0%, #222222 100%);
+    }
+
+    #contact p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    #contact a {
+      color: #888888;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    #contact a:hover {
+      color: #cccccc;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #0a0a0a;
+      color: #888;
+      font-size: 0.95rem;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      header h2 {
+        font-size: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      header {
+        padding-left: 5%;
+        padding-right: 5%;
+        text-align: center;
+      }
+    }
+
+    /* Scroll reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Hero Section -->
+  <header>
+    <!-- Floating particles -->
+    <div class="particle" style="width: 60px; height: 60px; top: 10%; left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="width: 40px; height: 40px; top: 20%; left: 80%; animation-delay: 2s;"></div>
+    <div class="particle" style="width: 80px; height: 80px; top: 60%; left: 15%; animation-delay: 4s;"></div>
+    <div class="particle" style="width: 50px; height: 50px; top: 70%; left: 70%; animation-delay: 6s;"></div>
+    <div class="particle" style="width: 30px; height: 30px; top: 40%; left: 90%; animation-delay: 8s;"></div>
+
+    <h1>Joseph Thapa Magar</h1>
+    <h2>Embedded Systems | IoT | Robotics | Automations</h2>
+    <a href="#projects" class="btn btn-custom mt-4">View My Work</a>
+  </header>
+
+  <!-- About Section -->
+  <section class="container py-5" id="about">
+    <h3 class="section-title reveal">About Me</h3>
+    
+    <div class="row align-items-center">
+      <div class="col-md-4 text-center reveal">
+        <div class="profile-image-container">
+          <!-- REPLACE WITH YOUR IMAGE: images/profile.jpg -->
+          <img src="Images/profile.png" alt="Joseph Thapa Magar" class="profile-image">
+        </div>
+      </div>
+      
+      <div class="col-md-8 reveal">
+        <p style="font-size: 1.2rem; line-height: 1.8; color: #333;">
+          I am an embedded systems and IoT engineer passionate about hardware + software solutions. 
+          With expertise in robotics and modern software development, I build innovative projects that 
+          bridge the physical and digital worlds.
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #555; margin-top: 20px;">
+          My journey in technology spans across microcontrollers, sensor integration, and full-stack 
+          development. I love tackling complex challenges and turning ideas into working prototypes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="container py-5" id="projects">
+    <h3 class="section-title reveal">Featured Projects</h3>
+
+    <div class="row g-4">
+
+      <!-- PROJECT 1 -->
+      <div class="col-md-4 reveal">
+        <a href="project1.html" style="text-decoration:none; color:inherit;">
+          <div class="card project-card shadow">
+            <img src="Robot Arm/Real.JPG" class="card-img-top" alt="Project 1">
+            <div class="card-body">
+              <h5 class="card-title">Automated Drink Serving Robotic Arm </h5>
+              <p class="card-text">An automatic robotic arm controlled through voice commands with vision capabilities to serve drinks.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="col-md-4 reveal">
+        <a href="project2.html" style="text-decoration:none; color:inherit;">
+          <div class="card project-card shadow">
+            <img src="https://picsum.photos/seed/robot2/600/400" class="card-img-top" alt="Project 2">
+            <div class="card-body">
+              <h5 class="card-title">Autonomous Robot</h5>
+              <p class="card-text">Self-navigating robot with obstacle detection and path planning algorithms.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="col-md-4 reveal">
+        <a href="project3.html" style="text-decoration:none; color:inherit;">
+          <div class="card project-card shadow">
+            <img src="https://picsum.photos/seed/robot3/600/400" class="card-img-top" alt="Project 3">
+            <div class="card-body">
+              <h5 class="card-title">Weather Monitoring Station</h5>
+              <p class="card-text">Real-time environmental data collection and visualization dashboard.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Contact Section -->
+  <section class="container py-5" id="contact">
+    <h3 class="section-title reveal">Get In Touch</h3>
+    <p class="text-center reveal">Email: <a href="mailto:joseph@example.com">joseph@example.com</a></p>
+    <p class="text-center reveal">GitHub: <a href="https://github.com/josephthapa" target="_blank">github.com/josephthapa</a></p>
+    <p class="text-center reveal">LinkedIn: <a href="https://linkedin.com/in/josephthapa" target="_blank">linkedin.com/in/josephthapa</a></p>
+  </section>
+
+  <footer>
+    © 2025 Joseph Thapa Magar. All Rights Reserved.
+  </footer>
+
+  <script>
+    // Scroll reveal animation
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      
+      reveals.forEach(element => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          element.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', reveal);
+    reveal(); // Initial check on page load
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
