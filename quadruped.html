@@ -744,84 +744,200 @@
           </div>
         </div>
 
-         <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/AQA7wihhiFs', 'Technical Demo')">
-          <img src="Robot Arm/3.PNG" alt="Technical Demo">
+         <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/y_Rb16T-gQ8', 'Our DIY 3D-Printed Robot Dog Side by Side with Unitree')">
+          <img src="https://img.youtube.com/vi/y_Rb16T-gQ8/maxresdefault.jpg" alt="Technical Demo">
           <div class="video-overlay">
             <div class="play-button">▶</div>
           </div>
           <div class="video-caption">
-            <h4>Testing & Calibration</h4>
+            <h4>Our DIY 3D-Printed Robot Dog Side by Side with Unitree</h4>
           </div>
         </div>
 
-         <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/AQA7wihhiFs', 'Technical Demo')">
-          <img src="Robot Arm/3.PNG" alt="Technical Demo">
+         <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/u-pavmMKRcM', 'Robot Dog Eyes')">
+          <img src="https://img.youtube.com/vi/u-pavmMKRcM/maxresdefault.jpg" alt="Technical Demo">
           <div class="video-overlay">
             <div class="play-button">▶</div>
           </div>
           <div class="video-caption">
-            <h4>Testing & Calibration</h4>
+            <h4>Robot Dog Eyes</h4>
           </div>
         </div>
 
-         <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/AQA7wihhiFs', 'Technical Demo')">
-          <img src="Robot Arm/3.PNG" alt="Technical Demo">
+         <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/L7z46BT1Lao', '360 View of Final Assembled Robot')">
+          <img src="https://img.youtube.com/vi/L7z46BT1Lao/hqdefault.jpg" alt="Technical Demo">
           <div class="video-overlay">
             <div class="play-button">▶</div>
           </div>
           <div class="video-caption">
-            <h4>Testing & Calibration</h4>
+            <h4>360 View of Final Assembled Robot</h4>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Project Description Section -->
+ <!-- Project Description Section -->
     <div class="info-section">
       <h2>📋 About This Project</h2>
       <p>
-      The project presents a voice-controlled 4-DOF robotic arm designed to automate the repetitive task of drink serving.
-       The system includes a vision sensor to locate glasses, the drink dispenser, and any obstacles within the robot’s 
-       workspace. The robot features a cycloidal drive to increase the torque output of Nema17 stepper motors and was designed 
-       using Fusion360 CAD software. The system is implemented in both virtual and physical environments, with CoppeliaSim 
-       providing the simulation platform for testing and visualization.
-        
+        The 3D-printed 8-DOF quadruped robot is a low-cost robotics platform designed to explore mechanical design, embedded systems, and gait control. The project demonstrates the design, prototyping, and iterative optimization process required to build a walking quadruped using affordable components, while achieving smooth and stable locomotion.
       </p>
-      <p>
-        Customers can request drinks using voice commands by starting the sentence with “Hey Arm”, similar to “Hey Siri.” 
-        The robot uses computer vision to locate empty glasses and automatically halts operation if obstacles are detected. 
-        A Model Predictive Control (MPC) system ensures precise control of the actuators for smooth and accurate movement.
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Mechanical Design</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Chassis and Frame</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>The legs which mainly includes tibia and femur, are fully 3D-printed, providing a lightweight and rigid structure.</li>
+        <li>The leg was designed to minimize flex, maintain low center of gravity, and support dynamic movements without overloading the joints.</li>
+        <li>The robot’s frame was built from MDF board, providing a sturdy base to attach the legs and other components.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Leg Joints and Degrees of Freedom</h4>
+      <p>Each leg contains two servo-actuated joints:</p>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Hip joint</strong> – provides forward-backward swing.</li>
+        <li><strong>Knee joint</strong> – provides vertical lift for foot clearance.</li>
+        <li><strong>Total robot degrees of freedom: 8</strong> (2 per leg).</li>
+      </ul>
+      <p style="margin-top: 12px;">
+        Early prototypes suffered from high inertia and unstable leg motion, as servos mounted at the extremities increased weight and torque demand. Repositioning servos closer to the body reduced rotational inertia, improving response time and dynamic stability.
       </p>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">4-Bar Linkage Mechanism</h4>
+      <p>"A planar 4-bar linkage is used in each leg to control the tibia (knee) joint, enabling the servo motors to be positioned on the robot’s body rather than directly on the legs, reducing leg weight and improving stability.</p>
+      <p><strong>Benefits:</strong></p>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Stable Center of Gravity: Servo placement on the body ensures the center of gravity remains constant during leg movement, preventing tipping.</li>
+        <li>Reduced Leg Weight: Legs are lighter since servos are not mounted directly on them, improving efficiency and speed.</li>
+        <li>Natural Motion: Enables leg movement patterns that closely mimic real quadrupeds.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Materials & Components</h3>
+      <div style="overflow-x: auto; margin: 20px 0;">
+        <table style="width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <thead>
+            <tr style="background: linear-gradient(135deg, #3d5a80 0%, #2c3e50 100%); color: white;">
+              <th style="padding: 15px; text-align: left; font-weight: 600; border: 1px solid #ddd;">Component</th>
+              <th style="padding: 15px; text-align: left; font-weight: 600; border: 1px solid #ddd;">Function / Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">Raspberry Pi 4B</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">Main controller executing gait algorithms and coordinating servo motion.</td>
+            </tr>
+            <tr style="background: #f8f9fa; border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">PCA9685 PWM Driver</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">16-channel PWM driver providing precise servo control without CPU timing overload.</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">MG996R Servos</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">High-torque actuators controlling hip and knee joints.</td>
+            </tr>
+            <tr style="background: #f8f9fa; border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">6806 Ball Bearings</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">Reduce friction in rotating joints, improve linkage reliability.</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">LiPo Battery 7.4V</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">Lightweight and portable power source for off-grid operation.</td>
+            </tr>
+            <tr style="background: #f8f9fa; border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">Raspberry Pi 7-inch Display</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">Enables running code without connecting to an external monitor, and can display robot “eyes” and emotions, adding an interactive element.</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">3D-Printed Chassis & Legs</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">Optimized geometry for weight distribution and structural stability.</td>
+            </tr>
 
-      <p>Detailed documentation is available below for further information.</p>
+          </tbody>
+        </table>
+      </div>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Gait and Motion Control</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Trot Gait</h4>
+      <p>The robot employs a trot gait, where diagonal leg pairs move together:</p>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Front-left & back-right, then front-right & back-left.</li>
+      </ul>
+      <p><strong>Advantages:</strong></p>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Provides dynamic stability even with lightweight frames.</li>
+        <li>Requires fewer timing adjustments than a fully independent leg gait.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Control Architecture</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Gait is controlled by Python scripts running on the Raspberry Pi.</li>
+        <li>PWM outputs are sent through the PCA9685 driver to ensure smooth, synchronized servo motion.</li>
+        <li>The control loop computes joint angles for each servo based on gait phase and desired stride length.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Motion Features</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Center of gravity management:</strong> The 4-bar linkage and servo placement maintain CoG stability.</li>
+        <li><strong>Remote control:</strong> Wi-Fi Flask server allows real-time adjustment of gait parameters (step height, speed, direction).</li>
+        <li><strong>Smooth trajectories:</strong> The combination of Python interpolation and mechanical linkage prevents abrupt foot placement, reducing tipping risk.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Challenges and Iterative Improvements</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Early Prototypes</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Flex in 3D-printed legs led to wobbling.</li>
+        <li>Heavy legs with distal-mounted servos caused torque overload and instability.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Servo Placement Optimization</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Moving servos closer to the body reduced leg inertia, improving acceleration and reducing tipping.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Center of Gravity and Weight Distribution</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Careful positioning of the battery, servos, and electronics ensured stability during dynamic gait cycles.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Linkage Geometry</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Fine-tuning the 4-bar linkage improved foot trajectory accuracy and repeatability.</li>
+        <li>Ball bearings reduced friction and extended servo lifespan.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Gait Tuning</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Step length, speed, and timing were adjusted iteratively to achieve consistent trot without loss of balance.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Learning Outcomes</h3>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Mechanical Design:</strong> Practical application of legged robot kinematics, 4-bar linkage mechanics, and low-weight structural design.</li>
+        <li><strong>Embedded Systems:</strong> PWM control of multiple servos via PCA9685, real-time servo synchronization, and Python-based control loops.</li>
+        <li><strong>Gait & Motion Control:</strong> Implementation of trot gait, trajectory planning, and center of gravity management.</li>
+        <li><strong>Iterative Engineering:</strong> Problem-solving through repeated testing, prototyping, and component repositioning.</li>
+        <li><strong>Remote Robotics:</strong> Integration of Wi-Fi control for experimentation with gait parameters.</li>
+      </ul>
 
-      <h2 style="margin-top: 30px;">⚙️ Technologies Used</h2>
+      <h2 style="margin-top: 40px;">⚙️ Technologies & Tools</h2>
       <div class="tech-stack">
         <span class="tech-badge">Python</span>
         <span class="tech-badge">C/C++</span>
-        <span class="tech-badge">CoppeliaSim</span>
-        <span class="tech-badge">Fusion360</span>
-        <span class="tech-badge">Motor Control</span>
-        <span class="tech-badge">Stepper Motor</span>
-        <span class="tech-badge">YOLO-Computer Vision</span>
-        <span class="tech-badge">MPC-Control System</span>
+        <span class="tech-badge">Servo</span>
+        <span class="tech-badge">Robot Design</span>
+        <span class="tech-badge">Flask</span>
+        <span class="tech-badge">Raspberry Pi</span>
+        <span class="tech-badge">PCA9685 PWM Driver</span>
+        <span class="tech-badge">3D Printing</span>
+        <span class="tech-badge">Fusion 360 CAD</span>
+        <span class="tech-badge">Linkage Kinematics</span>
+        <span class="tech-badge">Gait Mechanics</span>
+        <span class="tech-badge">PWM Control</span>
       </div>
     </div>
 
-    <!-- Documentation & Resources Section -->
-    <div class="info-section" style="margin-top: 40px;">
-      <h2>📚 Documentation & Resources</h2>
-      <p style="margin-bottom: 25px; color: #555;">Access detailed documentation, research findings, and source code for this project.</p>
-      <div class="links-section">
-        <a href="https://drive.google.com/file/d/1unGzJC_rBGCw731c9_yb68wpBAMlBDVA/view?usp=sharing" target="_blank" class="project-link">
-          <span>📄</span> Project Documentation
-        </a>
-        <a href="https://ejaset.com/index.php/journal/article/view/237/177" target="_blank" class="project-link">
-          <span>📝</span> Research Paper
-        </a>
 
-      </div>
-    </div>
 
   </div>
 
