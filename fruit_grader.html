@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fruit Grading System | Joseph Thapa Magar</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background: #f8f9fa;
+    }
+
+    /* Navigation */
+    nav {
+      background: linear-gradient(135deg, #1c1c1c 0%, #2a2a2a 100%);
+      padding: 20px 0;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #cccccc;
+      transform: translateX(-5px);
+    }
+
+    /* Hero Section - Compact */
+    .project-hero {
+      background: linear-gradient(-45deg, #2c3e50, #34495e, #1a252f, #3d5a80);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: white;
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .project-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .project-hero .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .project-tags span {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Section Titles */
+    .content-section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(135deg, #3d5a80 0%, #2c3e50 100%);
+      border-radius: 2px;
+    }
+
+    /* Video Grid for Multiple Videos */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .video-item {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .video-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .video-item img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .video-item:hover .video-overlay {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .play-button {
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #3d5a80;
+      padding-left: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .video-item:hover .play-button {
+      transform: scale(1.2);
+      background: white;
+    }
+
+    .video-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+      padding: 20px 15px 15px;
+    }
+
+    .video-caption h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    /* Video Modal */
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px 20px;
+    }
+
+    .video-modal.active {
+      display: flex;
+    }
+
+    .video-modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 1200px;
+      aspect-ratio: 16/9;
+    }
+
+    .video-modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    .video-modal-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+      background: #e74c3c;
+      padding: 14px 35px;
+      border-radius: 30px;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+      z-index: 10001;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .video-modal-close:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+    }
+
+    .video-modal-close::before {
+      content: '✕';
+      font-size: 20px;
+    }
+
+    .video-modal-hint {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 12px 20px;
+      border-radius: 25px;
+      z-index: 10001;
+    }
+
+    .video-modal-hint::before {
+      content: '💡';
+      font-size: 18px;
+    }
+
+    .video-modal-title {
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Featured Video - Large */
+    .featured-video {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      margin-bottom: 30px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+      background: #000;
+    }
+
+    .featured-video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
+
+    /* Image Gallery - Masonry Style */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .gallery-item {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Image Caption */
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+      padding: 20px 15px 15px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+      z-index: 2;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
+
+    .gallery-caption h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 80vh;
+      gap: 20px;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .lightbox-caption {
+      position: relative;
+      bottom: auto;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 12px 30px;
+      border-radius: 25px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.5);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 30px;
+      padding: 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      z-index: 10000;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .lightbox-prev {
+      left: 20px;
+    }
+
+    .lightbox-next {
+      right: 20px;
+    }
+
+    /* Info Section - Minimal */
+    .info-section {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 40px;
+    }
+
+    .info-section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1a1a2e;
+    }
+
+    .info-section p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    /* Tech Stack - Compact */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 25px 0;
+    }
+
+    .tech-badge {
+      background: linear-gradient(135deg, #3d5a80 0%, #2c3e50 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Links */
+    .links-section {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .project-link {
+      background: linear-gradient(135deg, #3d5a80 0%, #2c3e50 100%);
+      color: white;
+      padding: 10px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .project-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      color: white;
+    }
+
+    /* Back Button */
+    .back-section {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .back-btn {
+      background: linear-gradient(135deg, #444444 0%, #222222 100%);
+      color: white;
+      border: none;
+      padding: 12px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      color: white;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #0a0a0a;
+      color: #888;
+      font-size: 0.95rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-hero h1 {
+        font-size: 2rem;
+      }
+
+      .project-hero .subtitle {
+        font-size: 1rem;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .info-section {
+        padding: 30px 20px;
+      }
+
+      .video-modal-close {
+        top: 10px;
+        right: 10px;
+        font-size: 14px;
+        padding: 8px 20px;
+      }
+
+      .video-modal-hint {
+        display: none;
+      }
+
+      .video-modal-content {
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="index.html">← Back to Portfolio</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section - Compact -->
+  <div class="project-hero">
+    <h1>Fruit Grading System</h1>
+    <p class="subtitle">A real-time ESP32-based fruit grading system that uses a load cell to automatically count and weigh high-grade fruits, displaying count
+         and total weight on a 7-segment display with accurate add/remove detection.
+    </p>
+    <div class="project-tags">
+      <span>ESP32</span>
+      <span>C/C++ </span>
+      <span>HX711 Load Cell</span>
+      <span>Platform IO</span>
+      <span>KiCad</span>
+      <span>FreeRTOS</span>
+      
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    
+    <!-- Images Section -->
+    <div class="content-section">
+      <h2 class="section-title">📸 Project Images</h2>
+      <div class="gallery">
+
+
+      <div class="gallery-item" onclick="openLightbox(0)">
+        <img src="Fruit Grader/KiCad Top View.png" alt="KiCad Top view">
+        <div class="gallery-caption">
+          <h4>KiCad Top view</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(1)">
+        <img src="Fruit Grader/KiCad Bottom View.png" alt="KiCad Bottom View">
+        <div class="gallery-caption">
+          <h4>KiCad Bottom View</h4>
+        </div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(2)">
+        <img src="Fruit Grader/Fruit Grader showing 5.6kg total Weight.jpg" alt="Fruit Grader showing 5.6kg total Weight">
+        <div class="gallery-caption">
+          <h4>Fruit Grader showing 5.6kg total Weight</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(3)">
+        <img src="Fruit Grader/PCB Back.jpg" alt="PCB Back">
+        <div class="gallery-caption">
+          <h4>PCB Back </h4>
+        </div>
+      </div>
+
+
+            <div class="gallery-item" onclick="openLightbox(4)">
+        <img src="Fruit Grader/Fruit Grader_Cnt means Total number of high grade Fruits.jpg" alt="Fruit Grader: Cnt means Total number of high grade Fruits">
+        <div class="gallery-caption">
+          <h4>Fruit Grader: Cnt means Total number of high grade Fruits</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(5)">
+        <img src="Fruit Grader/Fruit Grader_tot means Total weight in kg.jpg" alt="Fruit Grader: tot means Total weight in kg">
+        <div class="gallery-caption">
+          <h4>Fruit Grader: tot means Total weight in kg</h4>
+        </div>
+      </div>
+      
+
+    </div>
+
+    <!-- Videos Section -->
+    <div class="content-section">
+      <h2 class="section-title">🎥 Project Videos</h2>
+      
+      <!-- Video Grid -->
+      <div class="video-grid">
+        <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/37wUGsD5J6w', 'Fruit Grader showing 123 items with 5.6kg total weight')">
+          <img src="https://img.youtube.com/vi/37wUGsD5J6w/maxresdefault.jpg" alt="Main Demo Video">
+          <div class="video-overlay">
+            <div class="play-button">▶</div>
+          </div>
+          <div class="video-caption">
+            <h4>Fruit Grader showing 123 items with 5.6kg total weight</h4>
+          </div>
+        </div>
+        
+        <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/T7lSGOGGCdQ', 'Real-time grading demo showing instant accept/reject based on weight — check description for details.')">
+          <img src="https://img.youtube.com/vi/T7lSGOGGCdQ/maxresdefault.jpg" alt="Technical Demo">
+          <div class="video-overlay">
+            <div class="play-button">▶</div>
+          </div>
+          <div class="video-caption">
+            <h4>Real-time grading demo showing instant accept/reject based on weight — check description for details.</h4>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+ <!-- Project Description Section -->
+   <!-- Project Description Section -->
+    <div class="info-section">
+      <h2>📋 About This Project</h2>
+      <p>
+        The Automated Fruit Grading and Weight Logging System is a low-cost, field-deployable embedded solution designed to help farmers automatically grade harvested fruits, track high-grade fruit count, and record total harvested weight in real time. The system eliminates manual grading errors and provides instant feedback during harvesting, enabling farmers to maintain consistent quality standards while improving operational efficiency.
+      </p>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">System Overview</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Purpose & Motivation</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Manual fruit grading is time-consuming, inconsistent, and prone to human error.</li>
+        <li>Farmers need real-time feedback during harvesting to maintain quality standards.</li>
+        <li>The system provides instant, automated classification based on weight thresholds.</li>
+        <li>Eliminates the need for post-harvest manual sorting and counting.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Core Functionality</h4>
+      <p>The device continuously measures the weight of incoming fruits and classifies them based on predefined grading thresholds:</p>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Weight-Based Classification:</strong> Fruits exceeding a defined threshold (e.g., 300g) are classified as high-grade.</li>
+        <li><strong>Automatic Counting:</strong> Tracks the number of high-grade fruits in real-time.</li>
+        <li><strong>Cumulative Weight Logging:</strong> Records total weight of all graded fruits.</li>
+        <li><strong>Instant Feedback:</strong> Buzzer provides audible confirmation for each grading event.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Hardware Architecture</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Weight Sensing System</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>10 kg Load Cell:</strong> High-precision strain gauge sensor for accurate weight measurement.</li>
+        <li><strong>HX711 Amplifier:</strong> 24-bit ADC providing stable, noise-resistant weight readings.</li>
+        <li><strong>Multi-Sample Averaging:</strong> Weight readings averaged over multiple samples (get_units(3)) for noise reduction.</li>
+        <li><strong>Auto-Taring:</strong> Scale automatically resets to zero after each valid fruit event.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Display System</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>3-Digit 7-Segment Display:</strong> Multiplexed display showing real-time count and total weight.</li>
+        <li><strong>Display Cycling:</strong> Continuously rotates between "cnt" (count), count value, "tot" (total), and weight in kg.</li>
+        <li><strong>One Decimal Precision:</strong> Total weight displayed in kilograms with one decimal place.</li>
+        <li><strong>Flicker-Free Operation:</strong> Fast multiplexing ensures smooth, readable updates.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">User Feedback</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Non-Blocking Buzzer:</strong> Provides instant audible confirmation for grading events.</li>
+        <li><strong>Event Differentiation:</strong> Different patterns for addition and removal events.</li>
+        <li><strong>Timing Logic:</strong> Prevents rapid retriggering and false alerts.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Materials & Components</h3>
+      <div style="overflow-x: auto; margin: 20px 0;">
+        <table style="width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <thead>
+            <tr style="background: linear-gradient(135deg, #3d5a80 0%, #2c3e50 100%); color: white;">
+              <th style="padding: 15px; text-align: left; font-weight: 600; border: 1px solid #ddd;">Component</th>
+              <th style="padding: 15px; text-align: left; font-weight: 600; border: 1px solid #ddd;">Function / Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">ESP32 Dual-Core MCU</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">Main controller managing weight sensing, grading logic, and display multiplexing using parallel processing.</td>
+            </tr>
+            <tr style="background: #f8f9fa; border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">HX711 Load Cell Amplifier</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">24-bit ADC providing precise weight measurement with noise reduction and signal conditioning.</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">10 kg Load Cell</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">High-precision strain gauge sensor capable of measuring up to 10 kg with excellent accuracy.</td>
+            </tr>
+            <tr style="background: #f8f9fa; border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">3-Digit 7-Segment Display</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">Multiplexed display showing real-time fruit count and cumulative weight with smooth cycling.</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 12px 15px; border: 1px solid #ddd; font-weight: 500;">Buzzer</td>
+              <td style="padding: 12px 15px; border: 1px solid #ddd;">Provides audible feedback for grading events with non-blocking timing logic.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Key Features</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Real-Time Fruit Grading</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Fruits are graded solely based on weight measurement.</li>
+        <li>If a fruit exceeds the defined threshold (e.g., 300g), it is automatically classified as high-grade.</li>
+        <li>Sub-threshold fruits are ignored and do not affect the count or cumulative weight.</li>
+        <li>Immediate classification enables real-time quality control during harvesting.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Bidirectional Weight Handling</h4>
+      <p>The system intelligently detects both addition and removal events:</p>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Addition Detection:</strong> Placing a fruit increases count and adds weight to the cumulative total.</li>
+        <li><strong>Removal Detection:</strong> Negative weight detection (≤ –grade threshold) decreases count and subtracts weight.</li>
+        <li><strong>Accuracy Maintenance:</strong> System stays accurate even when fruits are accidentally removed or repositioned.</li>
+        <li><strong>Event Confirmation:</strong> Buzzer provides distinct feedback for both addition and removal events.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Dual Display Mode</h4>
+      <p>The 3-digit 7-segment display cycles through four display states:</p>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>"cnt"</strong> → Label indicating count mode</li>
+        <li><strong>Count Value</strong> → Number of high-grade fruits processed</li>
+        <li><strong>"tot"</strong> → Label indicating total weight mode</li>
+        <li><strong>Total Weight</strong> → Cumulative weight in kilograms with one decimal place</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Multicore Processing Architecture</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Parallel Task Execution</h4>
+      <p>The ESP32's dual-core architecture enables efficient parallel processing:</p>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Core 0:</strong> Dedicated to display management with fast multiplexing and character rendering.</li>
+        <li><strong>Core 1:</strong> Handles load cell reading, grading logic, and buzzer management.</li>
+        <li><strong>Zero Display Flicker:</strong> Parallel execution ensures continuous, smooth display updates.</li>
+        <li><strong>Fast Weight Detection:</strong> Independent processing enables rapid, stable weight measurement.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Real-Time Performance</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Display refresh rate optimized for flicker-free operation.</li>
+        <li>Weight sampling frequency balanced for accuracy and responsiveness.</li>
+        <li>Non-blocking buzzer control prevents interference with core functions.</li>
+        <li>Efficient task scheduling ensures consistent system performance.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Functional Workflow</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Addition Process</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Step 1:</strong> Fruit placed on platform.</li>
+        <li><strong>Step 2:</strong> ESP32 reads weight via HX711 with multi-sample averaging.</li>
+        <li><strong>Step 3:</strong> If weight > threshold → Count increases.</li>
+        <li><strong>Step 4:</strong> Weight added to cumulative total.</li>
+        <li><strong>Step 5:</strong> Buzzer chirps for confirmation.</li>
+        <li><strong>Step 6:</strong> Scale automatically tares for next fruit.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Removal Process</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Step 1:</strong> Negative weight detected (fruit removed).</li>
+        <li><strong>Step 2:</strong> If weight change ≤ –grade threshold → Count decreases.</li>
+        <li><strong>Step 3:</strong> Weight subtracted from cumulative total.</li>
+        <li><strong>Step 4:</strong> Buzzer provides removal confirmation.</li>
+        <li><strong>Step 5:</strong> System ready for next operation.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Sub-Threshold Handling</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>If measured weight < threshold → Reading ignored.</li>
+        <li>No count increment or weight addition.</li>
+        <li>No buzzer feedback for sub-threshold items.</li>
+        <li>System maintains focus on high-grade fruit only.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Display Cycling</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Display continuously cycles through all four states.</li>
+        <li>Each state displayed for optimal readability.</li>
+        <li>Smooth transitions without flicker or lag.</li>
+        <li>Real-time updates reflect current system state.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Applications</h3>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>On-Field Fruit Grading:</strong> Real-time quality control during harvesting operations.</li>
+        <li><strong>Packaging Operations:</strong> Automated sorting and grading before packaging.</li>
+        <li><strong>Cooperative Farming Centers:</strong> Centralized collection and quality assessment.</li>
+        <li><strong>Quality Control:</strong> Data-driven consistency in fruit grading standards.</li>
+        <li><strong>Inventory Management:</strong> Accurate tracking of high-grade produce quantities.</li>
+        <li><strong>Traceability:</strong> Real-time logging for supply chain documentation.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Technical Advantages</h3>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Low Cost:</strong> Affordable components suitable for small-scale farmers.</li>
+        <li><strong>Field-Deployable:</strong> Portable design for use directly at harvest sites.</li>
+        <li><strong>High Accuracy:</strong> Multi-sample averaging and 24-bit ADC ensure precise measurements.</li>
+        <li><strong>Real-Time Feedback:</strong> Instant classification and audible confirmation.</li>
+        <li><strong>Error Reduction:</strong> Eliminates human subjectivity in grading decisions.</li>
+        <li><strong>Bidirectional Operation:</strong> Handles both addition and removal events intelligently.</li>
+        <li><strong>Dual-Core Processing:</strong> Parallel execution ensures responsive, flicker-free operation.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Learning Outcomes</h3>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Embedded Systems:</strong> ESP32 dual-core programming, task scheduling, and real-time system design.</li>
+        <li><strong>Sensor Integration:</strong> Load cell calibration, HX711 interface, and signal conditioning techniques.</li>
+        <li><strong>Display Multiplexing:</strong> 7-segment display control, character encoding, and flicker-free rendering.</li>
+        <li><strong>Event-Driven Programming:</strong> State management, event detection, and non-blocking feedback systems.</li>
+        <li><strong>Signal Processing:</strong> Multi-sample averaging, noise reduction, and threshold-based classification.</li>
+        <li><strong>Agricultural Technology:</strong> Practical application of IoT for precision agriculture and quality control.</li>
+        <li><strong>Hardware Design:</strong> Component selection, circuit integration, and field-ready enclosure design.</li>
+      </ul>
+
+      <h2 style="margin-top: 40px;">⚙️ Technologies & Tools</h2>
+      <div class="tech-stack">
+        <span class="tech-badge">C++</span>
+        <span class="tech-badge">Arduino Framework</span>
+        <span class="tech-badge">ESP32</span>
+        <span class="tech-badge">Dual-Core Processing</span>
+        <span class="tech-badge">HX711</span>
+        <span class="tech-badge">Load Cell</span>
+        <span class="tech-badge">7-Segment Display</span>
+        <span class="tech-badge">Display Multiplexing</span>
+        <span class="tech-badge">Embedded Systems</span>
+        <span class="tech-badge">Real-Time Systems</span>
+        <span class="tech-badge">Signal Processing</span>
+        <span class="tech-badge">Agricultural IoT</span>
+        <span class="tech-badge">Precision Agriculture</span>
+        <span class="tech-badge">Event-Driven Programming</span>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+
+  </div>
+
+  <!-- Back Button -->
+  <div class="back-section">
+    <a href="index.html" class="back-btn">← Back to Portfolio</a>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+    <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1, event)">&#10094;</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+    <button class="lightbox-nav lightbox-next" onclick="changeImage(1, event)">&#10095;</button>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal" id="videoModal" onclick="closeVideoModal(event)">
+    <div class="video-modal-content">
+      
+      <button class="video-modal-close" onclick="closeVideoModal(event)"></button>
+      <iframe id="videoIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <div class="video-modal-title" id="videoTitle"></div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Joseph Thapa Magar. All Rights Reserved.
+  </footer>
+
+  <script>
+    // Gallery data
+    const galleryImages = [
+      { src: 'Quadruped Robot/version 1.JPG', caption: 'First version Fusion360 Design' },
+      { src: 'Quadruped Robot/version 2 leg.JPG', caption: 'Second Version Leg Design' },
+      { src: 'Quadruped Robot/Version 2.JPG', caption: 'Second Version Assembled' },
+      { src: 'Quadruped Robot/v4 design.JPG', caption: 'Final Version Leg Design (4 bar linkage)' },
+      { src: 'Quadruped Robot/v4 design both view.JPG', caption: 'Final Version Leg Design (4 bar linkage)' },
+      { src: 'Quadruped Robot/Dog.jpg', caption: 'Final Complete Robot' },
+      { src: 'Quadruped Robot/Controller.JPG', caption: 'Robot Controller' }
+    ];
+
+    let currentIndex = 0;
+
+    // Image Lightbox Functions
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightboxImage();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event) {
+      if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    function changeImage(direction, event) {
+      event.stopPropagation();
+      currentIndex += direction;
+      
+      if (currentIndex < 0) {
+        currentIndex = galleryImages.length - 1;
+      } else if (currentIndex >= galleryImages.length) {
+        currentIndex = 0;
+      }
+      
+      updateLightboxImage();
+    }
+
+    function updateLightboxImage() {
+      const img = document.getElementById('lightbox-img');
+      const caption = document.getElementById('lightbox-caption');
+      
+      img.src = galleryImages[currentIndex].src;
+      caption.textContent = galleryImages[currentIndex].caption;
+    }
+
+    // Video Modal Functions
+    function openVideoModal(videoUrl, title) {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoIframe');
+      const titleEl = document.getElementById('videoTitle');
+      
+      iframe.src = videoUrl + '?autoplay=1';
+      titleEl.textContent = title;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal(event) {
+      if (event.target.id === 'videoModal' || event.target.classList.contains('video-modal-close')) {
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('videoIframe');
+        
+        iframe.src = '';
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      const lightbox = document.getElementById('lightbox');
+      const videoModal = document.getElementById('videoModal');
+      
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') {
+          lightbox.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        } else if (e.key === 'ArrowLeft') {
+          changeImage(-1, e);
+        } else if (e.key === 'ArrowRight') {
+          changeImage(1, e);
+        }
+      }
+      
+      if (videoModal.classList.contains('active') && e.key === 'Escape') {
+        closeVideoModal(e);
+      }
+    });
+  </script>
+
+</body>
+</html>
