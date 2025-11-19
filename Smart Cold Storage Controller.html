@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Cold Storage Controller | Joseph Thapa Magar</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background: #f8f9fa;
+    }
+
+    /* Navigation */
+    nav {
+      background: linear-gradient(135deg, #1c1c1c 0%, #2a2a2a 100%);
+      padding: 20px 0;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #cccccc;
+      transform: translateX(-5px);
+    }
+
+    /* Hero Section - Compact */
+    .project-hero {
+      background: linear-gradient(-45deg, #2c3e50, #34495e, #1a252f, #3d5a80);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: white;
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .project-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .project-hero .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .project-tags span {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Section Titles */
+    .content-section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(135deg, #3d5a80 0%, #2c3e50 100%);
+      border-radius: 2px;
+    }
+
+    /* Video Grid for Multiple Videos */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .video-item {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .video-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .video-item img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .video-item:hover .video-overlay {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .play-button {
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #3d5a80;
+      padding-left: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .video-item:hover .play-button {
+      transform: scale(1.2);
+      background: white;
+    }
+
+    .video-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+      padding: 20px 15px 15px;
+    }
+
+    .video-caption h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    /* Video Modal */
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px 20px;
+    }
+
+    .video-modal.active {
+      display: flex;
+    }
+
+    .video-modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 1200px;
+      aspect-ratio: 16/9;
+    }
+
+    .video-modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    .video-modal-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+      background: #e74c3c;
+      padding: 14px 35px;
+      border-radius: 30px;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+      z-index: 10001;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .video-modal-close:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+    }
+
+    .video-modal-close::before {
+      content: '✕';
+      font-size: 20px;
+    }
+
+    .video-modal-hint {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 12px 20px;
+      border-radius: 25px;
+      z-index: 10001;
+    }
+
+    .video-modal-hint::before {
+      content: '💡';
+      font-size: 18px;
+    }
+
+    .video-modal-title {
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Featured Video - Large */
+    .featured-video {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      margin-bottom: 30px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+      background: #000;
+    }
+
+    .featured-video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
+
+    /* Image Gallery - Masonry Style */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .gallery-item {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Image Caption */
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+      padding: 20px 15px 15px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+      z-index: 2;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
+
+    .gallery-caption h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 80vh;
+      gap: 20px;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .lightbox-caption {
+      position: relative;
+      bottom: auto;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 12px 30px;
+      border-radius: 25px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.5);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 30px;
+      padding: 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      z-index: 10000;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .lightbox-prev {
+      left: 20px;
+    }
+
+    .lightbox-next {
+      right: 20px;
+    }
+
+    /* Info Section - Minimal */
+    .info-section {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 40px;
+    }
+
+    .info-section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1a1a2e;
+    }
+
+    .info-section p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    /* Tech Stack - Compact */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 25px 0;
+    }
+
+    .tech-badge {
+      background: linear-gradient(135deg, #3d5a80 0%, #2c3e50 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Links */
+    .links-section {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .project-link {
+      background: linear-gradient(135deg, #3d5a80 0%, #2c3e50 100%);
+      color: white;
+      padding: 10px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .project-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      color: white;
+    }
+
+    /* Back Button */
+    .back-section {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .back-btn {
+      background: linear-gradient(135deg, #444444 0%, #222222 100%);
+      color: white;
+      border: none;
+      padding: 12px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      color: white;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #0a0a0a;
+      color: #888;
+      font-size: 0.95rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-hero h1 {
+        font-size: 2rem;
+      }
+
+      .project-hero .subtitle {
+        font-size: 1rem;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .info-section {
+        padding: 30px 20px;
+      }
+
+      .video-modal-close {
+        top: 10px;
+        right: 10px;
+        font-size: 14px;
+        padding: 8px 20px;
+      }
+
+      .video-modal-hint {
+        display: none;
+      }
+
+      .video-modal-content {
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="index.html">← Back to Portfolio</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section - Compact -->
+  <div class="project-hero">
+    <h1>Smart Cold-Storage Controller with 3-Phase Power Monitoring (ESP32-Based)</h1>
+    <p class="subtitle">Micromouse is a small autonomous robot that uses sensors and algorithms to explore, map, and solve a maze, aiming to reach the center in the shortest time possible.
+    </p>
+    <div class="project-tags">
+      <span>Robotics</span>
+      <span>C/C++ </span>
+      <span>MATLAB</span>
+      <span>Laser Sensor</span>
+      <span>PID Control System</span>
+      <span>PCB Design</span>
+      
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    
+    <!-- Images Section -->
+    <div class="content-section">
+      <h2 class="section-title">📸 Project Images</h2>
+      <div class="gallery">
+
+
+      <div class="gallery-item" onclick="openLightbox(0)">
+        <img src="Micromouse/First Version.jpg" alt="First Prototype">
+        <div class="gallery-caption">
+          <h4>First Prototype</h4>
+        </div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(1)">
+        <img src="Micromouse/Techfest.jpg" alt="First Runner-up Micromouse Robot at IIT Bombay Techfest 2022">
+        <div class="gallery-caption">
+          <h4>First Runner-up Micromouse Robot at IIT Bombay Techfest 2022</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(2)">
+        <img src="Micromouse/Team.jpg" alt="Team Members">
+        <div class="gallery-caption">
+          <h4>Team Members</h4>
+        </div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(3)">
+        <img src="Micromouse/First Runner Up.jpg" alt="Micromouse Maze and First Runner-up Trophy">
+        <div class="gallery-caption">
+          <h4>Micromouse Maze and First Runner-up Trophy</h4>
+        </div>
+      </div>
+
+
+            <div class="gallery-item" onclick="openLightbox(4)">
+        <img src="Micromouse/Certificate.jpg" alt="Certificate">
+        <div class="gallery-caption">
+          <h4>Certificate</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(5)">
+        <img src="Micromouse/Final Version Top.jpg" alt="Final Version Top View">
+        <div class="gallery-caption">
+          <h4>Final Version Top View</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(6)">
+        <img src="Micromouse/Final Version Side.jpg" alt="Final Version Side View">
+        <div class="gallery-caption">
+          <h4>Final Version Side View</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(7)">
+        <img src="Micromouse/Final Version Assembled.jpg" alt="Final Version Fully Assembled">
+        <div class="gallery-caption">
+          <h4>Final Version Fully Assembled</h4>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Videos Section -->
+    <div class="content-section">
+      <h2 class="section-title">🎥 Project Videos</h2>
+      
+      <!-- Video Grid -->
+      <div class="video-grid">
+        <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/sjLN2rg6-SQ', 'Simple Wall Follow PID Control')">
+          <img src="https://img.youtube.com/vi/sjLN2rg6-SQ/maxresdefault.jpg" alt="Simple Wall Follow PID Control">
+          <div class="video-overlay">
+            <div class="play-button">▶</div>
+          </div>
+          <div class="video-caption">
+            <h4>Simple Wall Follow PID Control</h4>
+          </div>
+        </div>
+        
+        <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/M6wv133hGPg', 'Micromouse Recovery from an Offset Start Angle Demonstrating Stable PID Based Correction')">
+          <img src="https://img.youtube.com/vi/M6wv133hGPg/maxresdefault.jpg" alt="Micromouse Recovery from an Offset Start Angle Demonstrating Stable PID Based Correction">
+          <div class="video-overlay">
+            <div class="play-button">▶</div>
+          </div>
+          <div class="video-caption">
+            <h4>Micromouse Recovery from an Offset Start Angle Demonstrating Stable PID Based Correction</h4>
+          </div>
+        </div>
+
+        <div class="video-item" onclick="openVideoModal('https://www.youtube.com/embed/GP2w6cWGm4A', 'Simple Maze Exploration')">
+          <img src="https://img.youtube.com/vi/GP2w6cWGm4A/hqdefault.jpg" alt="Simple Maze Exploration">
+          <div class="video-overlay">
+            <div class="play-button">▶</div>
+          </div>
+          <div class="video-caption">
+            <h4>Simple Maze Exploration</h4>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- Project Description Section -->
+    <div class="info-section">
+      <h2>📋 About This Project</h2>
+      <p>
+        Built a fully autonomous Micromouse robot that can find its way through a 16×16 maze, reach the center, and navigate quickly using smart algorithms and precise motor control. The project demonstrates the integration of path-finding algorithms, real-time control systems, and custom hardware design to achieve efficient autonomous maze navigation.
+      </p>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Key Contributions</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Algorithm Development</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Implemented a modified flood-fill algorithm optimized for memory efficiency, enabling the robot to find the shortest path through complex maze configurations.</li>
+        <li>Developed dynamic path updating system that adapts to newly discovered walls during exploration.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Control Systems</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Created a PID/PD motor control system enabling smooth wall-following behavior and precise turning maneuvers.</li>
+        <li>Conducted comprehensive motor analysis in MATLAB to characterize system dynamics and optimize controller parameters.</li>
+        <li>Implemented real-time encoder signal processing to maintain accurate position tracking throughout navigation.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Simulation and Testing</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Established simulation environment in ROS + Gazebo with custom robot models to validate navigation algorithms before hardware deployment.</li>
+        <li>Tested across multiple maze configurations to verify shortest-path accuracy and robustness.</li>
+        <li>Collected and analyzed sensor data to validate accuracy and identify areas for improvement.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Hardware Architecture</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Custom Electronics</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Custom PCB Design:</strong> Designed and fabricated custom printed circuit boards integrating all electronic components for compact and reliable operation.</li>
+        <li><strong>STM32 Microcontroller:</strong> High-performance microcontroller executing real-time control algorithms and sensor fusion.</li>
+        <li><strong>L293D H-Bridge Driver:</strong> Dual H-bridge motor driver providing smooth bidirectional motor control with current protection.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Sensing System</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>VL53L0X TOF Sensors:</strong> Time-of-flight laser ranging sensors providing reliable wall detection with millimeter accuracy.</li>
+        <li><strong>Magnetic Encoders:</strong> High-resolution rotary encoders integrated with motors for precise distance and velocity feedback.</li>
+        <li>Sensor fusion algorithms combine TOF and encoder data for robust localization within the maze.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Mechanical Design</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Compact chassis design optimized for navigating standard Micromouse maze dimensions (180mm cells).</li>
+        <li>Low center of gravity configuration ensuring stability during high-speed runs and sharp turns.</li>
+        <li>Integrated motor mounts and sensor brackets for consistent alignment and measurement accuracy.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Software & Algorithms</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Maze Mapping and Pathfinding</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Real-time maze mapping system builds internal representation as the robot explores.</li>
+        <li>Modified flood-fill algorithm computes optimal paths with minimal computational overhead.</li>
+        <li>Dynamic path recalculation adapts to newly discovered obstacles during exploration phase.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Motion Control</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>Cell-to-Cell Navigation:</strong> PID controller ensures precise movement between maze cells with minimal overshoot.</li>
+        <li><strong>Wall Following:</strong> PD control maintains optimal distance from maze walls during exploration.</li>
+        <li><strong>Turn Management:</strong> Coordinated motor control executes 90° and 180° turns with repeatable accuracy.</li>
+        <li><strong>Speed Profiling:</strong> Velocity control optimizes speed while maintaining positional accuracy.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Real-Time Processing</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>High-frequency control loop (1kHz+) processes encoder signals and updates motor commands.</li>
+        <li>Interrupt-driven sensor readings ensure timely wall detection and collision avoidance.</li>
+        <li>State machine architecture coordinates exploration, pathfinding, and speed run phases.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Competition Performance</h3>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li><strong>First Runner-Up at IIT Bombay Techfest 2022:</strong> Successfully competed against teams from across India in the Micromouse challenge.</li>
+        <li>Demonstrated consistent maze solving across multiple runs with different maze configurations.</li>
+        <li>Achieved reliable shortest-path calculation and execution within competition time constraints.</li>
+      </ul>
+      
+      <h3 style="font-size: 1.5rem; margin-top: 35px; margin-bottom: 20px; color: #1a1a2e; font-weight: 700;">Future Enhancements</h3>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Advanced Motion Planning</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Diagonal movement capability for faster maze traversal using 45° angles.</li>
+        <li>Smooth curve navigation to replace discrete 90° turns, reducing time loss during direction changes.</li>
+      </ul>
+      
+      <h4 style="font-size: 1.2rem; margin-top: 20px; margin-bottom: 12px; color: #2c3e50; font-weight: 600;">Hardware Improvements</h4>
+      <ul style="line-height: 1.8; color: #555; margin-left: 20px;">
+        <li>Suction fan integration to increase downforce and improve traction at higher speeds.</li>
+        <li>FPGA-based control implementation for ultra-fast control loops and parallel processing.</li>
+        <li>Upgraded motors and encoders for higher speed and resolution.</li>
+      </ul>
+
+      <p style="margin-top: 25px;">
+        <strong>Further Details:</strong> The full project report is provided below for comprehensive technical documentation.
+      </p>
+
+      <h2 style="margin-top: 40px;">⚙️ Technologies & Tools</h2>
+      <div class="tech-stack">
+        <span class="tech-badge">C/C++</span>
+        <span class="tech-badge">MATLAB</span>
+        <span class="tech-badge">ROS + Gazebo</span>
+        <span class="tech-badge">STM32</span>
+        <span class="tech-badge">PCB Design</span>
+        <span class="tech-badge">PID/PD Control</span>
+        <span class="tech-badge">Flood-Fill Algorithm</span>
+        <span class="tech-badge">VL53L0X TOF Sensors</span>
+        <span class="tech-badge">Magnetic Encoders</span>
+        <span class="tech-badge">L293D H-Bridge</span>
+        <span class="tech-badge">Real-Time Systems</span>
+        <span class="tech-badge">Autonomous Navigation</span>
+      </div>
+    </div>
+    <!-- Documentation & Resources Section -->
+    <div class="info-section" style="margin-top: 40px;">
+      <h2>📚 Documentation & Resources</h2>
+      <p style="margin-bottom: 25px; color: #555;">Access detailed documentation for this project.</p>
+      <div class="links-section">
+        <a href="https://drive.google.com/file/d/1QvJqF7Z9_r08SNDN--VKga6hY-OhCrVE/view?usp=sharing" target="_blank" class="project-link">
+          <span>📄</span> Project Documentation
+        </a>
+
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Back Button -->
+  <div class="back-section">
+    <a href="index.html" class="back-btn">← Back to Portfolio</a>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+    <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1, event)">&#10094;</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+    <button class="lightbox-nav lightbox-next" onclick="changeImage(1, event)">&#10095;</button>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal" id="videoModal" onclick="closeVideoModal(event)">
+    <div class="video-modal-content">
+      
+      <button class="video-modal-close" onclick="closeVideoModal(event)"></button>
+      <iframe id="videoIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <div class="video-modal-title" id="videoTitle"></div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Joseph Thapa Magar. All Rights Reserved.
+  </footer>
+
+  <script>
+    // Gallery data
+    const galleryImages = [
+      { src: 'Robot Arm/Fusion.JPG', caption: 'Fusion360' },
+      { src: 'Robot Arm/Real.JPG', caption: 'Robotic Arm serving a drink' },
+      { src: 'Robot Arm/cycloidal drive model for coppeliasim v2.png', caption: 'Cycloidal Gearbox' },
+      { src: 'Robot Arm/SimEnv.JPG', caption: 'CoppeliaSim Simulation' },
+      { src: 'Robot Arm/Certificate.jpg', caption: 'Certificate' },
+      { src: 'Robot Arm/Render.png', caption: 'Fusion360 Render' }
+    ];
+
+    let currentIndex = 0;
+
+    // Image Lightbox Functions
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightboxImage();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event) {
+      if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    function changeImage(direction, event) {
+      event.stopPropagation();
+      currentIndex += direction;
+      
+      if (currentIndex < 0) {
+        currentIndex = galleryImages.length - 1;
+      } else if (currentIndex >= galleryImages.length) {
+        currentIndex = 0;
+      }
+      
+      updateLightboxImage();
+    }
+
+    function updateLightboxImage() {
+      const img = document.getElementById('lightbox-img');
+      const caption = document.getElementById('lightbox-caption');
+      
+      img.src = galleryImages[currentIndex].src;
+      caption.textContent = galleryImages[currentIndex].caption;
+    }
+
+    // Video Modal Functions
+    function openVideoModal(videoUrl, title) {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoIframe');
+      const titleEl = document.getElementById('videoTitle');
+      
+      iframe.src = videoUrl + '?autoplay=1';
+      titleEl.textContent = title;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal(event) {
+      if (event.target.id === 'videoModal' || event.target.classList.contains('video-modal-close')) {
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('videoIframe');
+        
+        iframe.src = '';
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      const lightbox = document.getElementById('lightbox');
+      const videoModal = document.getElementById('videoModal');
+      
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') {
+          lightbox.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        } else if (e.key === 'ArrowLeft') {
+          changeImage(-1, e);
+        } else if (e.key === 'ArrowRight') {
+          changeImage(1, e);
+        }
+      }
+      
+      if (videoModal.classList.contains('active') && e.key === 'Escape') {
+        closeVideoModal(e);
+      }
+    });
+  </script>
+
+</body>
+</html>
